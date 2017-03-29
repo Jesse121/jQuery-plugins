@@ -1,8 +1,9 @@
 # jQuryPlugin
-自己尝试着编写的jQuery插件，更多是模仿  
+ 
+自己编写的jQuery插件，有很多功能不完善，后期会逐渐改善
 
 #### 插件列表
-##### jquery.calendar日历记事插件
+1. jquery.calendar日历记事插件
 默认参数配置
 ```javascript
     $('#calendar').Calendar({
@@ -18,7 +19,8 @@
         ]
     })
 ```
-实例效果
+实例效果  
+
 <iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/gtfvorkt" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
 
 
