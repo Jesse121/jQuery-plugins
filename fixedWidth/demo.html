@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>fixedWidth</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="author" content="Jesse">
+    <style type="text/css">
+    ul {
+        width: 240px;
+        border: solid 1px red;
+        padding-left: 1.5em;
+    }
+    </style>
+    <script src="http://apps.bdimg.com/libs/jqery/1.11.3/jquery.min.js"></script>
+    <script>
+    	window.jQuery||document.write('<script src="../jquery.min.js"><\/script>');
+    </script>
+    <script src="fixedWidth.js"></script>
+</head>
+
+<body>
+    <ul>
+        <li><a href="#">广西人社厅：2010年广西公务员考试考题泄露18:45</a></li>
+        <li><a href="#">广东今年普通高校招生录取首次实施平行志愿09:25</a></li>
+        <li><a href="#">教师绩效改革标准制定难09:31</a></li>
+        <li><a href="#">Top US Military Officer: Let Gays Serve Openly 11:20</a></li>
+        <li><a href="#">Some US Students Learn Mandarin With China's Help13:43</a></li>
+        <li><a href="#">A Rough Road for Toyota 17:14</a></li>
+    </ul>
+    <script type="text/javascript">
+    	$(function(){
+    		var a = $('li a');
+    		a.each(function(){
+    			var str = $(this).text();
+    			var title = str;
+    			str = $.fixedWidth(str,28);
+    			$(this).text(str).attr("title",title);
+    		})
+    	})
+    </script>
+</body>
+
+</html>

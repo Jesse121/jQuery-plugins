@@ -36,8 +36,11 @@
 		            }
 		        },
 		        start : function () {
-		            if (!settings.auto) return;
-		            timer = setInterval(methods.autoRun, settings.time);
+		            if (settings.auto){
+		            	timer = setInterval(methods.autoRun, settings.time);
+		            }else{
+		            	return;
+		            } 
 		        },
 		        autoRun : function () {
 		            var on = $self.find('li.on'),
