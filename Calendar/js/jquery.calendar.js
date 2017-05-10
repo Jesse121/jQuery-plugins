@@ -1,16 +1,25 @@
-(function ($) {
-    var Calendar = function (options, object) {
+;(function ($) {
+    $.fn.Calendar = function (config) {
+        return this.each(function () {
+            return Calendar(config, $(this));
+        });
+    };
+
+    function Calendar(options, object) {
         //获取当前日期
         var adDay = new Date().getDate();
         //获取当前月份
         var adMonth = new Date().getMonth();
         //获取当前年份
         var adYear = new Date().getFullYear();
+        //获取今天星期数
         var dDay = adDay;
+        //获取今天月份
         var dMonth = adMonth;
+        //获取今天年份
         var dYear = adYear;
         var instance = object;
-
+        //合并默认参数
         var settings = $.extend({}, $.fn.Calendar.defaults, options);
 
         function lpad(value, length, pad) {
@@ -43,7 +52,7 @@
                     y:y + 20
                 }
             })(event);
-            $('div.c-event-grid').css({
+            $('.c-event-grid').css({
                 "display":"block",
                 "top":mousePosition.y,
                 "left":mousePosition.x
@@ -53,19 +62,17 @@
                 var d = settings.events[i].datetime;
                 if (d.getDate() == $(this).attr('data-event-day') && (d.getMonth() - 1) == dMonth && d.getFullYear() == dYear) {
                     var date = d.getFullYear()+'/'+lpad(d.getMonth(), 2) + '/' + lpad(d.getDate(), 2) + ' ' + lpad(d.getHours(), 2) + ':' + lpad(d.getMinutes(), 2);
-                    var item = $('<div>').addClass('c-event-item');
-                    var title = $('<div>').addClass('title').html(date + '  ' + settings.events[i].title);
-                    var description = $('<div>').addClass('description').html(settings.events[i].description );
+                    var item = $('<div/>').addClass('c-event-item');
+                    var title = $('<div/>').addClass('title').html(date + '  ' + settings.events[i].title);
+                    var description = $('<div/>').addClass('description').html(settings.events[i].description );
                     item.attr('data-event-day', d.getDate());
                     item.append(title).append(description);
                 }
             }
             $('.c-event-list').empty().append(item);
-
         };
         var hide = function(){
             $('.c-event-grid').css("display","none");
-            
         }
 
         var mouseLeaveEvent = function () {
@@ -95,10 +102,11 @@
             }
             print();
         };
-
+        //可以通过ajax加载事件数据
         function loadEvents() {
             if (typeof settings.url != 'undefined' && settings.url != '') {
-                $.ajax({url: settings.url,
+                $.ajax({
+                    url: settings.url,
                     async: false,
                     success: function (result) {
                         settings.events = result;
@@ -106,22 +114,25 @@
                 });
             }
         }
-
+        //生成日历
         function print() {
             loadEvents();
+            //获得当前月第一天的星期数
             var dWeekDayOfMonthStart = new Date(dYear, dMonth, 1).getDay();
+            //获得当前月最后一天的星期数
             var dLastDayOfMonth = new Date(dYear, dMonth + 1, 0).getDate();
+            //获得上月最后一天的星期数
             var dLastDayOfPreviousMonth = new Date(dYear, dMonth , 0).getDate();
-
-            var cBody = $('<div>').addClass('c-grid');
-            var cEvents = $('<div>').addClass('c-event-grid');
-            var cEventsBody = $('<div>').addClass('c-event-body');
-            cEvents.append($('<div>').addClass('c-event-title').html(settings.eventTitle));
+            //生成外框结构
+            var cBody = $('<div/>').addClass('c-grid');
+            var cEvents = $('<div/>').addClass('c-event-grid');
+            var cEventsBody = $('<div/>').addClass('c-event-body');
+            cEvents.append($('<div/>').addClass('c-event-title').html(settings.eventTitle));
             cEvents.append(cEventsBody);
-
-            var cPrevious = $('<div>').addClass('c-previous c-grid-title');
-            var cMonth = $('<div>').addClass('c-month c-grid-title');
-            var cNext = $('<div>').addClass('c-next c-grid-title');
+            //生成顶部切换条
+            var cPrevious = $('<div/>').addClass('c-previous c-grid-title');
+            var cMonth = $('<div/>').addClass('c-month c-grid-title');
+            var cNext = $('<div/>').addClass('c-next c-grid-title');
             cPrevious.html(settings.textArrows.previous);
             cMonth.html(settings.months[dMonth] + ' ' + dYear);
             cNext.html(settings.textArrows.next);
@@ -132,17 +143,17 @@
             cBody.append(cPrevious);
             cBody.append(cMonth);
             cBody.append(cNext);
-            //生成星期信息
+            //生成顶部星期信息
+            var cWeekDay = "";
             for (var i = 0; i < settings.weekDays.length; i++) {
-                var cWeekDay = $('<div>').addClass('c-week-day');
-                cWeekDay.html(settings.weekDays[i]);
-                cBody.append(cWeekDay);
+                cWeekDay += '<div class="c-week-day">'+settings.weekDays[i]+'</div>';
             }
-
+            cBody.append(cWeekDay);
+            //生成日历列表
             var day = 1;
             var dayOfNextMonth = 1;
             for (var i = 1; i < 43; i++) {
-                var cDay = $('<div>');
+                var cDay = $('<div/>');
                 if (i < dWeekDayOfMonthStart) {
                     cDay.addClass('c-day-previous-month');
                     cDay.html(dLastDayOfPreviousMonth + i- dWeekDayOfMonthStart);
@@ -166,21 +177,14 @@
                 cBody.append(cDay);
             }
 
-            var eventList = $('<div>').addClass('c-event-list');
+            var eventList = $('<div/>').addClass('c-event-list');
             $(instance).addClass('calendar').on("mouseleave",hide);
             cEventsBody.append(eventList);
             $(instance).html(cBody).append(cEvents);
         }
-
         return print();
     }
-
-    $.fn.Calendar = function (config) {
-        return this.each(function () {
-            return Calendar(config, $(this));
-        });
-    };
-
+    
     // 默认配置参数
     $.fn.Calendar.defaults = {
         weekDays: ['一', '二', '三', '四', '五', '六', '日'],

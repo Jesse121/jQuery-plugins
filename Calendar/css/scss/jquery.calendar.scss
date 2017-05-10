@@ -31,6 +31,8 @@ $width:350px;
 }
 .c-day {
     width: $width/7;
+    border-left:1px solid #ccc;
+    border-bottom:1px solid #ccc;
     background-color: #EFF4F9;
     float: left;
     text-align: center;
@@ -38,6 +40,8 @@ $width:350px;
 
 .c-day-previous-month,.c-day-next-month {
     width: $width/7;
+    border-left:1px solid #ccc;
+    border-bottom:1px solid #ccc;
     background-color: #F9FBFD;
     float: left;
     text-align: center;
@@ -51,6 +55,7 @@ $width:350px;
 }
 .c-week-day {
     width: $width/7;
+    border-bottom:1px solid #ccc;
     background-color: rgb(145, 172, 203);
     color: white;
     float: left;
@@ -144,18 +149,19 @@ $width:350px;
 }
 
 .c-event-item > .title {
-    font-weight: bold;
+    padding: 10px;
+    background-color: #ccc;
 }
 
-.c-event-item > div {
+.c-event-item > .description {
     text-overflow: ellipsis;
     width: inherit;
+    padding:10px;
     overflow: hidden;
     white-space: nowrap;
 }
 
 .c-event-item {
-    padding-left: 10px;
     margin-bottom: 10px;
 }
 
