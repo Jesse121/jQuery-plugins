@@ -1,17 +1,29 @@
-####jQuery插件开发两个底层方法
-#####jQuery.extend([deep ], target [, object1 ] [, objectN ] )
+---
+title: jQuery插件开发总结
+date: 2016-05-16
+tags: 
+- jQuery
+categories: 
+- jQuery
+---
+自从用上了jQuery之后，发现真是离不开它，它几乎成了前端开发的标配，越来越多的前端项目中引入了jQuery。在实际开发中我们常常需要载入一些其他jQuery插件，起初都是从网上找的一些别人已经写好的插件，可有些插件却不太适合自己目前的项目，于是尝试着修改了一些插件源码。最终目标是自己能开发出一个适合项目所需的jQuery组件。在开发jQuery插件时也是有一些套路可寻的，今天就来总结一下jQuery插件开发的几种方法。
+<!-- more -->
+
+### jQuery插件开发两个底层方法
+#### jQuery.extend([deep ], target [, object1 ] [, objectN ] )
 将两个或更多对象的内容合并到第一个对象。
 
 * deep 如果是true，合并成为递归（又叫做深拷贝）
-* target 一个对象，如果附加的对象被传递给这个方法将那么它将接收新的属性，如果它是唯一的参数则将扩展jQuery的命名空间，这对于插件开发者希望向 jQuery 中添加新函数时是很有用的。
+* target 一个对象，如果object对象存在新属性或新方法，那么target将接收新的属性或方法，如果它是唯一的参数则将扩展jQuery的命名空间，这对于插件开发者希望向 jQuery 中添加新方法是很有用的。
 * object1 一个对象，它包含额外的属性合并到第一个参数
-* 包含额外的属性合并到第一个参数
+* objectN 包含额外的属性合并到第一个参数
 
 当我们提供两个或多个对象给`$.extend()`，对象的所有属性都添加到目标对象（target参数）  
-目标对象（第一个参数）将被修改，并且将通过`$.extend()`返回。然而，如果我们想保留原对象，我们可以通过传递一个空对象作为目标对象：
-`var settings = $.extend({}, defaults, options);`  
-在默认情况下，通过$.extend()合并操作是不递归的;
-```javascript
+目标对象将被修改，并且将通过`$.extend()`返回。然而，如果我们想保留原对象，我们可以通过传递一个空对象作为目标对象：
+`var settings = $.extend({}, defaults, options);`这样defaults对象就不会被更改  
+在默认情况下，通过$.extend()合并操作是不递归的，如果第一个对象的属性本身是一个对象或数组，那么它将完全用第二个对象相同的key重写这个属性。这些值不会被合并。;
+```js
+//注意浅拷贝和深拷贝的区别
 var object1 = {apple: 0,banana: {weight: 52, price: 100},cherry: 97};
 var object2 = {banana: {price: 200},durian: 100};
 $.extend(object1, object2);
@@ -19,7 +31,7 @@ $.extend(object1, object2);
 $.extend(true, object1, object2);
 //{apple: 0, banana: {weight: 52, price:200}, cherry: 97, durian: 100}
 ```
-#####jQuery.fn.extend()
+#### jQuery.fn.extend()
 在jQuery源码中有`jQuery.fn = jQuery.prototype = function(){……}`即指向jQuery对象的原型链，对其它进行的扩展，作用在jQuery对象上面；  
 
 **总结**
@@ -27,7 +39,7 @@ $.extend(true, object1, object2);
 1. jQuery.extend()能够创建全局函数或选择器，在实际开发中常使用jQuery.extend()方法作为插件方法传递系列选项结构的参数
 2. jQuery.fn.extend()能够创建jQuery对象方法，一般用此方法来扩展jQuery的对象插件
 
-####jQuery插件开发通用框架
+### jQuery插件开发通用框架
 ```javascript
 ;(function($, window, document, undefined){
     //Plugin code here
@@ -39,8 +51,8 @@ $.extend(true, object1, object2);
 传入undefined是为了防止undefined变量被更改，确保undefined的准确性  
 
 
-####jQuery插件开发的3种形式
-1、类级别开发(封装全局函数的插件)  
+### jQuery插件开发的3种形式
+#### 类级别开发(封装全局函数的插件)  
 类级别写法：
 ```javascript
 //方式1
@@ -57,12 +69,11 @@ $.extend(true, object1, object2);
         };  
     })
 })(jQuery, window, document);
-
 ```
 
 调用方法：$.pluginName();  
 
-2、对象级别的插件开发
+#### 对象级别的插件开发
 对象级别插件写法：  
 ```javascript
 //方式1
@@ -181,15 +192,15 @@ $.extend(true, object1, object2);
 
 调用方法：$.fn.pluginName();  
 
-3、通过$.widget()应用jQuery UI的部件工厂方式创建
+### 通过$.widget()应用jQuery UI的部件工厂方式创建
 用来开发更高级jQuery部件的，该模式开发出来的部件带有很多jQuery内建的特性，比如插件的状态信息自动保存，各种关于插件的常用方法等
 
 
-####编写JQuery插件需要注意的地方： 
+### 编写JQuery插件需要注意的地方： 
 
 1. 插件的推荐命名方法为：jquery.[插件名].js 
 2. 所有的对象方法都应当附加到JQuery.fn对象上面，而所有的全局函数都应当附加到JQuery对象本身上。 
 3. 可以通过this.each() 来遍历所有的元素 
 4. 在jQuery开发中，this关键词通常引用的是当前正在操作的DOM元素，但在当前的jQuery插件上下文中，this关键词引用的是当前jQuery实例自身，唯一的例外是在当前jQuery集合中遍历所有元素时，$.each循环体内的this引用的是这一轮遍历所暴露的DOM元素
-5. 所有方法或函数插件，都应当以分号结尾，否则压缩的时候可能会出现问题。为了更加保险写，可以在插件头部添加一个分号（；），以免他们的不规范代码给插件带来 影响。 
+5. 所有方法或函数插件，都应当以分号结尾，否则压缩的时候可能会出现问题。为了更加保险写，可以在插件头部添加一个分号（；），以免他们的不规范代码给插件带来影响。 
 6. 插件应该返回一个JQuery对象，以便保证插件的可链式操作。 
