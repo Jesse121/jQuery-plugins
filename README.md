@@ -21,7 +21,7 @@
 ```
 实例效果  
 
-<iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/gtfvorkt" allowfullscreen="allowfullscreen" frameborder="0"></iframe>
+<p><iframe style="width: 100%; height: 300px" src="http://sandbox.runjs.cn/show/gtfvorkt" allowfullscreen="allowfullscreen" frameborder="0"></iframe></p>
 
 
 |插件名称 | 用途 |
