@@ -14,7 +14,9 @@
 	            delay: true,		//是否延迟切换
 	            delayTime: 500		//延迟时间
 	        };
+
 	        var settings = $.extend({}, defaults, options),
+	        
 	        $self = $(this),
 	        items = $self.children('ul.menu').children('li'),
 	        tabBox = $self.children('div.main'),
@@ -70,7 +72,7 @@
 	                methods.start();
 	            });
 	        }
-
+	        
 	    });
 	};
 })(jQuery, window, document);

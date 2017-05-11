@@ -132,6 +132,7 @@
             });
         }
     };
+    
     $.fn.zSlider = function(options) {
         var obj = new zSlider(this, options);
         obj.init();
