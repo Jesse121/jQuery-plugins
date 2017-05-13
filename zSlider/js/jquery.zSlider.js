@@ -17,8 +17,7 @@
             speed: 500, //滚动速度
             auto: true //是否自动播放
         };
-        this.options = $.extend({}, this.defaults, options);
-        // console.log(this.options);
+        this.setting = $.extend({}, this.defaults, options);
     };
     zSlider.prototype = {
         //初始化数据
@@ -26,15 +25,15 @@
             //开始的索引
             this.index = 0;
             //图片宽度
-            this.width = $('.' + this.options.pic_class, this.$element).find('img:first').width();
+            this.width = $('.' + this.setting.pic_class, this.$element).find('img:first').width();
             //图片高度
-            this.height = $('.' + this.options.pic_class, this.$element).find('img:first').height();
+            this.height = $('.' + this.setting.pic_class, this.$element).find('img:first').height();
             //图片大包装盒
-            this.img_wrop = this.$element.find('.' + this.options.pic_class);
+            this.img_wrop = this.$element.find('.' + this.setting.pic_class);
             //所有小包装盒
             this.img_box = this.img_wrop.children();
             //所有图片
-            this.imgs = this.$element.find('.' + this.options.pic_class + ' img');
+            this.imgs = this.$element.find('.' + this.setting.pic_class + ' img');
             //图片数量
             this.number = this.imgs.length;
             //设置slider的为绝对定位
@@ -42,16 +41,16 @@
             //设置包装盒为相对定位
             this.img_wrop.css({ 'position': 'absolute', top: '0px', left: '0px' });
             //如果为水平滚动，设置大包装盒的宽度，图片小包装盒为左浮动
-            if (this.options.direction == 'horizontal' && this.options.animate == 'roll') {
+            if (this.setting.direction == 'horizontal' && this.setting.animate == 'roll') {
                 this.img_wrop.css({ 'width': this.width * this.number + 'px' });
                 this.img_box.css({ 'float': 'left' });
             }
             //生成导航
             this.createNav();
             //是否自动播放
-            if (this.options.auto) this.play();
+            if (this.setting.auto) this.play();
             //绑定事件，切换图片
-            this.bind(this.options.event);
+            this.bind(this.setting.event);
         },
         createNav: function() {
             this.$element.append('<div class="nav"></div>');
@@ -97,36 +96,34 @@
                 }
                 Z.$nav.children().eq(Z.index).addClass('on').css({ 'color': 'orange' })
                                  .siblings().removeClass('on').css({ 'color': '#fff' });
-                Z[Z.options.animate](); //图片动画
-            }, this.options.duration);
+                Z[Z.setting.animate](); //图片动画
+            }, this.setting.duration);
         },
         roll: function() {
             var Z = this;
-            if (Z.options.direction == 'vertical') { //如果是垂直滚动
+            if (Z.setting.direction == 'vertical') { //如果是垂直滚动
                 $(Z.img_wrop).animate({
                     top: -Z.height * Z.index + 'px'
-                }, Z.options.speed);
+                }, Z.setting.speed);
             } else {
                 $(Z.img_wrop).animate({
                     left: -Z.width * Z.index + 'px'
-                }, Z.options.speed);
+                }, Z.setting.speed);
             }
         },
         bind: function(type) {
             var Z = this;
             this.$nav.children().bind(type, function() {
-                // console.log(Z.$nav.children());
                 Z.index = $(this).index(); //当前this指向的导航元素对象,例如span对象
-                console.log(Z.index);
                 Z.$nav.children().eq(Z.index).addClass('on').css({ 'color': 'orange' })
                                             .siblings().removeClass('on').css({ 'color': '#fff' });
                 //停止当前所有动面，如果没有这一句，在快速切换导航时，图片将一直切换,直到所有动画执行完并，造成效果不佳。
                 $(Z.img_wrop).stop();
-                Z[Z.options.animate](); //图片动画
+                Z[Z.setting.animate](); //图片动画
                 clearInterval(Z.$element.timer);
             });
             this.$nav.bind('mouseleave', function() {
-                if (Z.options.auto) {
+                if (Z.setting.auto) {
                     Z.play();
                 }
             });
@@ -136,6 +133,7 @@
     $.fn.zSlider = function(options) {
         var obj = new zSlider(this, options);
         obj.init();
-        return this; //返回jQuery选择器的集合，以便链式调用
+        //返回jQuery选择器的集合，以便链式调用
+        return this; 
     };
 })(jQuery, window, document);

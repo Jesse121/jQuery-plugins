@@ -1,0 +1,64 @@
+.clock {
+    position: relative;
+    height: 410px;
+    width: 410px;
+    margin: 0px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    display:none;
+}
+
+.secondtree {
+    height: 200px;
+    width: 2px;
+    position: absolute;
+    border: 0px solid black;
+    background-color: red;
+    transform-origin: 0 67%;
+    border-radius: 1px;
+    z-index: 1015;
+}
+
+
+.smalltree {
+    width: 8px;
+    height: 8px;
+    background-color: white;
+    position: absolute;
+    border-radius: 50%;
+    z-index: 2016;
+}
+
+.bigtree {
+    width: 16px;
+    height: 16px;
+    background-color: skyblue;
+    position: absolute;
+    border-radius: 50%;
+    z-index: 2008;
+}
+
+.minutetree {
+    width: 6px;
+    height: 170px;
+    background-color: green;
+    position: absolute;
+    z-index: 1010;
+    transform-origin: 50% 100%;
+}
+
+.hourtree {
+    width: 11px;
+    height: 100px;
+    background-color: green;
+    position: absolute;
+    z-index: 1005;
+    transform-origin: 50% 100%;
+}
+
+.scaletree {
+    background-color: black;
+    position: absolute;
+    text-align: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}

@@ -44,10 +44,70 @@ $('li a').fixedWidth({
 点此查看[Demo](http://sandbox.runjs.cn/show/jhiqrrap)
 
 ### Clock 时钟插件
+##### 主要功能：
+在页面上展示动态时钟
+##### 参数配置
+```js
+var defaults = {
+    h_radius: "10%", //边框圆角弧度
+    h_borderColor: "#ccc", //边框颜色
+    h_backColor: "yellow", //背景颜色
+    h_width: "300px", //宽度
+    h_height: "300px", //高度
+    h_secondHandColor: "red", //秒针颜色
+    h_frontColor: "darkgreen",
+    h_thinHandColor: "green", //分针颜色
+    h_hourLength: "", //时针长度
+    h_minuteLength: "", //分针长度
+    h_secondLength: "", //秒针长度
+    h_hourNumShow: true, //是否显示正点时间数字
+    h_hourNumSize: "", //正点时间数字大小
+    h_hourNumColor: "green",
+    h_hourNumRadii: "", //正点时间数字半径
+    h_minuteNumShow: true, //是否显示逢5分钟数字
+    h_minuteHeight: "", //普通分针刻度高度
+    h_minuteWidth: 1,
+    h_minute5Height: "", //逢5分针刻度高度
+    h_minute5Width: "",
+    h_minute15Height: "", //逢15分针刻度高度
+    h_minute15Width: ""
+};
+```
+##### 实例效果  
+点此查看[Demo](http://sandbox.runjs.cn/show/axtzssky)  
+参考地址：[http://hovertree.com/texiao/hoverclock/](http://hovertree.com/texiao/hoverclock/)
 
 ### tabSwitch 标签页切换插件
+##### 主要功能：
+标签页切换插件，可以设置是否自动切换，出发切换操作的方式，这类插件在一般官网首页用的比较多
+##### 参数配置
+```js
+var defaults = {
+    operate: 'click',   //切换方式
+    auto: true,         //是否自动切换
+    time: 4000,         //自动切换过渡时间
+    delay: false,       //是否延迟切换
+    delayTime: 300      //延迟时间
+};
+```
+##### 实例效果  
+点此查看[Demo](http://sandbox.runjs.cn/show/ugdmpau5)
 
 ### zSlider 焦点图插件
-
-### jPages 翻页插件
+##### 主要功能：
+焦点图自动切换，在一般首页头图中经常用到
+##### 参数配置
+```js
+this.defaults = {
+    pic_class:'Zslider-img',
+    animate: 'roll',
+    direction: 'horizontal', //滚动方向,vertical重直滚动,horizontal水平滚动
+    event: "click",
+    duration: 3000, //播放频率
+    speed: 500, //滚动速度
+    auto: true //是否自动播放
+};
+```
+##### 实例效果  
+点此查看[Demo](http://sandbox.runjs.cn/show/1gucutro)
 
