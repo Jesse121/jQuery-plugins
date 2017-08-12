@@ -1,4 +1,4 @@
-### jQuery-plugins
+### jQuery Plugins
  
 这里展示的主要是自己在前端开发工作中用到的jQuery插件，部分插件是网上他人开发的但不适合直接拿来使用到项目中，于是自己尝试着修改了代码。还有些插件是因项目需要完全由自己开发的。
 
@@ -26,8 +26,6 @@
 点此查看[Demo](http://sandbox.runjs.cn/show/gtfvorkt)
 
 参考地址：[https://github.com/jhonis/e-calendar](https://github.com/jhonis/e-calendar)
-
-### Clock 时钟插件
 
 ### fixedWidth 固定字符串字节数输出
 ##### 主要功能：
@@ -79,7 +77,7 @@ var defaults = {
 
 ### tabSwitch 标签页切换插件
 ##### 主要功能：
-标签页切换插件，可以设置是否自动切换，出发切换操作的方式，这类插件在一般官网首页用的比较多
+标签页切换插件，可以设置是否自动切换，触发切换操作的方式，这类插件在一般官网首页用的比较多
 ##### 参数配置
 ```js
 var defaults = {
