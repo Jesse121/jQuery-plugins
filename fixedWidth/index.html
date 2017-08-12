@@ -14,21 +14,28 @@
         border: solid 1px #ccc;
         padding: 0.5em;
         list-style: none;
+        width:280px;
     }
     li{
         line-height: 25px;
     }
+    li a {
+        display: block;
+        text-overflow:ellipsis;
+        overflow: hidden;
+        white-space: nowrap;
+    }
     </style>
     <script src="http://apps.bdimg.com/libs/jquery/1.11.3/jquery.min.js"></script>
     <script>
-    	window.jQuery||document.write('<script src="js/jquery.min.js"><\/script>');
+    	window.jQuery || document.write('<script src="js/jquery.min.js"><\/script>');
     </script>
     <script src="js/jquery.fixedWidth.js"></script>
 </head>
 
 <body>
     <ul>
-        <li><a href="#">广西人社厅：2010年广西公务员考试考题泄露18:45</a></li>
+        <li><a href="#">广西人社厅：2016年广西公务员考试考题泄露18:45</a></li>
         <li><a href="#">广东今年普通高校招生录取首次实施平行志愿09:25</a></li>
         <li><a href="#">教师绩效改革标准制定难09:31</a></li>
         <li><a href="#">Top US Military Officer: Let Gays Serve Openly 11:20</a></li>
@@ -45,11 +52,11 @@
         //  })
 
         //对象级别插件开发调用方法 
-        $('li a').fixedWidth({
-            len:28,
-            char:"……",
-            title:false
-        }); 
+        // $('li a').fixedWidth({
+        //     // len:25, //预定的字符串的字节数
+        //     char:"……", //超过的部分用此字符串代替
+        //     title:true //是否设置title信息
+        // }); 
     </script>
 </body>
 

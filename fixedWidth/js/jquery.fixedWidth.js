@@ -67,51 +67,45 @@
             var str = this.innerHTML;
             var title = str;
             var length = settings.len;
-            var num = length - lengthB(str); //获取字符串的字节数与指定长度的差值
+            var num = length - lengthB(str); //获取指定保留的字符串字节数与实际字符串的字节数的差值
             if (num < 0) {
                 str = substringB(str, length - lengthB(settings.char)) + settings.char;
             }
             this.innerHTML = str;
+            //设置title
             if(settings.title){
                 this.setAttribute("title",title);
             }
 
             function substringB(str, length) { //指定的字节数截取字符串
-                var num = 0,
-                    len = str.length,
-                    tenp = "";
-                if (len) {
-                    for (var i = 0; i < len; i++) {
-                        if (num > length) break;
-                        if (str.charCodeAt(i) > 255) { //如果是双字节字符，中文
-                            num += 2;
-                            tenp += str.charAt(i);
-                        } else {
-                            num++;
-                            tenp += str.charAt(i);
-                        }
+                var temp = "",num = 0;
+                for (var i = 0,len = str.length; i < len; i++) {
+                    if (num >= length) break;
+                    if (str.charCodeAt(i) > 255) { //如果是双字节字符，中文
+                        num += 2;
+                    } else {
+                        num++;
                     }
-                    return tenp;
-                } else {
-                    return null;
+                    temp += str.charAt(i);
                 }
+                return temp;
             }
 
+            /**
+             * 获取字符串字节数
+             * @param  {String} str 字符串参数
+             * @return {number}     字节数
+             */
             function lengthB(str) {
-                var num = 0,
-                    len = str.length;
-                if (len) {
-                    for (var i = 0; i < len; i++) {
-                        if (str.charCodeAt(i) > 255) {
-                            num += 2;
-                        } else {
-                            num++;
-                        }
+                var num = 0;
+                for (var i = 0,len = str.length; i < len; i++) {
+                    if (str.charCodeAt(i) > 255) {
+                        num += 2;
+                    } else {
+                        num ++;
                     }
-                    return num;
-                } else {
-                    return 0;
                 }
+                return num;
             }
         });
     }
